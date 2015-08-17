@@ -83,7 +83,7 @@ namespace ImageFragmentCreator
 
             SetValue();
 
-            UpdateLabel11();
+            pictureBox1.Refresh();
         }
 
         private void LoadSetting()
@@ -193,8 +193,6 @@ namespace ImageFragmentCreator
             elements[comboBox5.SelectedIndex - 1].pos = e.Location;
 
             pictureBox1.Refresh();
-
-            UpdateLabel11();
         }
 
         private void UpdateLabel11()
@@ -235,6 +233,8 @@ namespace ImageFragmentCreator
                 g.DrawLine(Pens.Blue, 0, -element.yr / 2, 0, element.yr / 2);    // y
                 g.ResetTransform();
             }
+
+            UpdateLabel11();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -246,9 +246,12 @@ namespace ImageFragmentCreator
 
         private void ResetValue()
         {
+            elements[comboBox5.SelectedIndex - 1].pos = Point.Empty;
             elements[comboBox5.SelectedIndex - 1].xr = trackBar1.Value = 1;
             elements[comboBox5.SelectedIndex - 1].yr = trackBar2.Value = 1;
             elements[comboBox5.SelectedIndex - 1].angle = trackBar3.Value = 0;
+
+            pictureBox1.Refresh();
         }
 
         private void SetValue()
