@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using ToyBox;
 
 namespace ImageFragmentCreator
 {
@@ -43,14 +44,14 @@ namespace ImageFragmentCreator
         {
             string[] files = Directory.GetFiles(path, "*.png");
             string[] filename;
-            char[] delimiterChars = {'/', '.'};
+            char[] delimiterChars = { '/', '.' };
 
             for (int i = 0; i < files.Length; i++)
-			{
+            {
                 filename = files[i].Split(delimiterChars);
 
                 comboBox1.Items.Add(filename[filename.Length - 2]);
-			}
+            }
         }
 
         private void LoadComboBoxText(ComboBox comboBox, String path)
@@ -108,7 +109,9 @@ namespace ImageFragmentCreator
                         elements[i - 1].angle = int.Parse(sr.ReadLine());
                     }
                 }
-            } else {
+            }
+            else
+            {
                 // file is not exist.
 
                 textBox1.Text = "";
@@ -213,7 +216,7 @@ namespace ImageFragmentCreator
             if (comboBox5.SelectedIndex <= 0)
             {
                 for (int i = 1; i < comboBox5.Items.Count; i++)
-			    {
+                {
                     element = elements[i - 1];
 
                     g.TranslateTransform(element.pos.X, element.pos.Y);
@@ -222,8 +225,10 @@ namespace ImageFragmentCreator
                     g.DrawLine(Pens.Red, -element.xr / 2, 0, element.xr / 2, 0);    // x
                     g.DrawLine(Pens.Blue, 0, -element.yr / 2, 0, element.yr / 2);    // y
                     g.ResetTransform();
-			    }
-            } else {
+                }
+            }
+            else
+            {
                 element = elements[comboBox5.SelectedIndex - 1];
 
                 g.TranslateTransform(element.pos.X, element.pos.Y);
@@ -249,7 +254,7 @@ namespace ImageFragmentCreator
             elements[comboBox5.SelectedIndex - 1].pos = Point.Empty;
             elements[comboBox5.SelectedIndex - 1].xr = trackBar1.Value = 1;
             elements[comboBox5.SelectedIndex - 1].yr = trackBar2.Value = 1;
-            elements[comboBox5.SelectedIndex - 1].angle = trackBar3.Value = 0;
+            elements[comboBox5.SelectedIndex - 1].angle = trackBar3.Value = 180;
 
             pictureBox1.Refresh();
         }
@@ -282,6 +287,15 @@ namespace ImageFragmentCreator
             if (comboBox5.SelectedIndex == comboBox5.Items.Count - 1) return;
 
             comboBox5.SelectedIndex++;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (comboBox5.SelectedIndex <= 0) return;
+
+            Trimming.TrimmingBitmap(elements[comboBox5.SelectedIndex - 1], img, new Size(50 + (int)MyRandom.Next(100), 50 + (int)MyRandom.Next(100)));
+
+            this.Refresh();
         }
     }
 }

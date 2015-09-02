@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace ImageFragmentCreator
 {
-    internal class Element
+    public class Element
     {
         public Point pos = Point.Empty;
         public int xr = 1;
