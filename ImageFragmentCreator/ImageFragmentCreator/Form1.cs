@@ -123,14 +123,54 @@ namespace ImageFragmentCreator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex <= 0) return;
-            comboBox1.SelectedIndex--;
+            if (checkBox1.Checked)
+            {
+                int ans = comboBox1.SelectedIndex;
+
+                for (int i = ans - 1; i > 0; i--)
+                {
+                    comboBox1.SelectedIndex = i;
+
+                    if (!File.Exists(settingPath + comboBox1.Text + ".txt"))
+                    {
+                        ans = i;
+                        return;
+                    }
+                }
+
+                comboBox1.SelectedIndex = ans;
+            }
+            else
+            {
+                if (comboBox1.SelectedIndex <= 0) return;
+                comboBox1.SelectedIndex--;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex == comboBox1.Items.Count - 1) return;
-            comboBox1.SelectedIndex++;
+            if (checkBox1.Checked)
+            {
+                int ans = comboBox1.SelectedIndex;
+
+                for (int i = ans + 1; i < comboBox1.Items.Count; i++)
+                {
+                    comboBox1.SelectedIndex = i;
+
+                    if (!File.Exists(settingPath + comboBox1.Text + ".txt"))
+                    {
+                        ans = i;
+                        return;
+                    }
+                }
+
+                comboBox1.SelectedIndex = ans;
+            }
+            else
+            {
+                if (comboBox1.SelectedIndex == comboBox1.Items.Count - 1) return;
+                comboBox1.SelectedIndex++;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
